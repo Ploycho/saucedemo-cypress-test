@@ -29,3 +29,29 @@ All manual testing reports are attached as PDF files inside the `document/` fold
 ```bash
    git clone [https://github.com/Ploycho/saucedemo-cypress-test.git](https://github.com/Ploycho/saucedemo-cypress-test.git)
    cd saucedemo-cypress-test
+
+2. **Install dependencies:**
+```bash
+   npm install
+
+3. **Run tests:**
+
+- To open Cypress UI:**
+```bash
+   npx cypress open
+
+- To run in headless mode (Terminal):
+```bash
+   npx cypress open
+
+---
+
+## 📬 How to Run API Tests (Postman)
+
+1. Open Postman.
+2. Click **Import** and upload both JSON files from the root folder:
+   - `Go Rest.postman_collection.json`
+   - `GoRest_Env.json`
+3. Select **`GoRest_Test`** from the environment dropdown menu (top-right corner).
+4. *(Optional)* If the token expires, go to the **Environments** tab, select `GoRest_Test`, and update the `TOKEN` variable with a new one from GoRest. Click **Save**.
+5. Click on the `GoRest` collection, click **Run**, and then click the blue **Run GoRest** button to execute all tests.
