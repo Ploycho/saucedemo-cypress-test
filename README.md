@@ -43,7 +43,7 @@ All manual testing reports are attached as PDF files inside the `document/` fold
 ```
 - To run in headless mode (Terminal):
 ```bash
-   npx cypress open
+   npx cypress run
 ```
 ---
 
