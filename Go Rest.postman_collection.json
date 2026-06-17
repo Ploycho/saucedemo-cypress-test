@@ -1,0 +1,885 @@
+{
+  "info": {
+    "_postman_id": "5d477386-155f-4400-9be5-848f6df4c948",
+    "name": "Go Rest",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "26924216"
+  },
+  "item": [
+    {
+      "name": "Create User (Happy Case)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "//1.Validate status code",
+              "pm.test(\"Response status code is 201 Created\" , function(){",
+              "    pm.expect(pm.response.code).to.eql(201);",
+              "});",
+              "",
+              "//2.Validate response schema",
+              "var jsonData = pm.response.json();",
+              "",
+              "pm.test(\"Response schema is valid\" , function (){",
+              "    pm.expect(jsonData).to.have.property('id');",
+              "    pm.expect(jsonData).to.have.property('name');",
+              "    pm.expect(jsonData).to.have.property('email');",
+              "    pm.expect(jsonData).to.have.property('gender');",
+              "    pm.expect(jsonData).to.have.property('status');",
+              "});",
+              "",
+              "//3.Validate auto-generated user ID",
+              "console.log(typeof jsonData.id);",
+              "",
+              "pm.test(\"Validate auto-generated user ID\" , function (){",
+              "    pm.expect(jsonData.id).to.be.a('number');",
+              "    pm.expect(jsonData.id).to.not.be.null;",
+              "});",
+              "",
+              "//4.Validate User detail",
+              "var requestData = JSON.parse(pm.request.body.raw)",
+              "pm.test(\"Validate user detail are correct\" , function() {",
+              "    pm.expect(jsonData.name).to.eql(requestData.name)",
+              "    pm.expect(jsonData.gender).to.eql(requestData.gender)",
+              "    pm.expect(jsonData.status).to.eql(requestData.status)",
+              "    pm.expect(jsonData.email).to.include(\"PloyQA.\")",
+              "});",
+              "",
+              "if (pm.response.code === 201) {",
+              "    pm.environment.set(\"current_user_id\", jsonData.id);",
+              "}"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{TOKEN}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Ploy\",\n  \"email\": \"PloyQA.{{$timestamp}}@example.com\",\n  \"gender\": \"male\",\n  \"status\": \"active\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://gorest.co.in/public/v2/users",
+          "protocol": "https",
+          "host": [
+            "gorest",
+            "co",
+            "in"
+          ],
+          "path": [
+            "public",
+            "v2",
+            "users"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "succes",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Ploy\",\n  \"email\": \"PloyQA.{{$timestamp}}@example.com\",\n  \"gender\": \"male\",\n  \"status\": \"active\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://gorest.co.in/public/v2/users",
+              "protocol": "https",
+              "host": [
+                "gorest",
+                "co",
+                "in"
+              ],
+              "path": [
+                "public",
+                "v2",
+                "users"
+              ]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": ":status",
+              "value": 201
+            },
+            {
+              "key": "date",
+              "value": "Tue, 16 Jun 2026 16:32:40 GMT"
+            },
+            {
+              "key": "content-type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "content-length",
+              "value": "102"
+            },
+            {
+              "key": "location",
+              "value": "https://gorest.co.in/public/v2/users/8508781"
+            },
+            {
+              "key": "cache-control",
+              "value": "max-age=0, private, must-revalidate"
+            },
+            {
+              "key": "content-security-policy-report-only",
+              "value": "default-src 'self'; script-src 'self' https://pagead2.googlesyndication.com 'nonce-NNLCr1cqN5fpq5RsTwe7Gw=='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://pagead2.googlesyndication.com https://ep1.adtrafficquality.google; frame-src https://googleads.g.doubleclick.net https://ep2.adtrafficquality.google https://www.google.com; object-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"
+            },
+            {
+              "key": "etag",
+              "value": "W/\"36a4690b7d7bf5db68c7c26332b21426\""
+            },
+            {
+              "key": "feature-policy",
+              "value": "camera 'none'; gyroscope 'none'; microphone 'none'; usb 'none'; fullscreen 'self'"
+            },
+            {
+              "key": "referrer-policy",
+              "value": "strict-origin-when-cross-origin"
+            },
+            {
+              "key": "strict-transport-security",
+              "value": "max-age=63072000; includeSubDomains"
+            },
+            {
+              "key": "vary",
+              "value": "Origin"
+            },
+            {
+              "key": "x-content-type-options",
+              "value": "nosniff"
+            },
+            {
+              "key": "x-frame-options",
+              "value": "SAMEORIGIN"
+            },
+            {
+              "key": "x-permitted-cross-domain-policies",
+              "value": "none"
+            },
+            {
+              "key": "x-ratelimit-limit",
+              "value": "300"
+            },
+            {
+              "key": "x-ratelimit-remaining",
+              "value": "299"
+            },
+            {
+              "key": "x-ratelimit-reset",
+              "value": "0"
+            },
+            {
+              "key": "x-request-id",
+              "value": "a7366180-52a1-4966-8e77-2ed8c7ce1062"
+            },
+            {
+              "key": "x-runtime",
+              "value": "0.081364"
+            },
+            {
+              "key": "x-xss-protection",
+              "value": "0"
+            },
+            {
+              "key": "nel",
+              "value": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"
+            },
+            {
+              "key": "cf-cache-status",
+              "value": "DYNAMIC"
+            },
+            {
+              "key": "report-to",
+              "value": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=z7QxqjL7yQHRFcwndxWFc5vjRCc16FecAlGAGus8%2Ft%2F3e%2BBb2wPQd1XuV2Z2fkA%2BVt3CTV1dsOH8Y3D%2FP63cm0EwwG3r9OfMX4a0c%2FLS54H5abSdopL4KiYD1AacX7MWQ3AXME5lGn0L02M%3D\"}]}"
+            },
+            {
+              "key": "server",
+              "value": "cloudflare"
+            },
+            {
+              "key": "cf-ray",
+              "value": "a0cb36395ce4f8ce-SIN"
+            },
+            {
+              "key": "alt-svc",
+              "value": "h3=\":443\"; ma=86400"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": 8508781,\n    \"name\": \"Ploy\",\n    \"email\": \"PloyQA.1781627560@example.com\",\n    \"gender\": \"male\",\n    \"status\": \"active\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "Create User - Duplicate Email (Negative Case)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "//6.Ensure email uniqueness",
+              "var jsonData = pm.response.json();",
+              "",
+              "pm.test(\"Response status code is 422 Unprocessable Entity \", function() {",
+              "    pm.response.to.have.status(422);",
+              "});",
+              "pm.test(\"Validate duplicate email error message\", function () {",
+              "    pm.expect(jsonData[0].field).to.eql(\"email\");",
+              "    pm.expect(jsonData[0].message).to.eql(\"has already been taken\");",
+              "});",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{TOKEN}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Ploy\",\n  \"email\": \"tenali@example.com\",\n  \"gender\": \"male\",\n  \"status\": \"active\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://gorest.co.in/public/v2/users",
+          "protocol": "https",
+          "host": [
+            "gorest",
+            "co",
+            "in"
+          ],
+          "path": [
+            "public",
+            "v2",
+            "users"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create User - Invalid Request Format(Negative Case)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "//7.Validate invalid request format",
+              "var jsonData = pm.response.json();",
+              "",
+              "pm.test(\"Response status code is 422 Unprocessable Entity \", function() {",
+              "    pm.response.to.have.status(422);",
+              "});",
+              "",
+              "pm.test(\"Validate invalid gender value error message\", function() {",
+              "    pm.expect(jsonData[0].field).to.eql(\"gender\");",
+              "    pm.expect(jsonData[0].message).to.eql(\"can't be blank, can be male of female\");",
+              "});",
+              "",
+              "pm.test(\"Validate invalid status error message\", function() {",
+              "    pm.expect(jsonData[1].field).to.eql(\"status\");",
+              "    pm.expect(jsonData[1].message).to.eql(\"can't be blank\");",
+              "});",
+              "",
+              "pm.test(\"Validate invalid email error message\", function() {",
+              "    pm.expect(jsonData[2].field).to.eql(\"email\");",
+              "    pm.expect(jsonData[2].message).to.eql(\"is invalid\");",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{TOKEN}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Ploy\",\n  \"email\": \"QAexample.com\",  //invalid email format\n  \"gender\": \"i\", //invalid gender value(can be male or female)\n  \"status\": \"i\" //invalid status\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://gorest.co.in/public/v2/users",
+          "protocol": "https",
+          "host": [
+            "gorest",
+            "co",
+            "in"
+          ],
+          "path": [
+            "public",
+            "v2",
+            "users"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create User - Missing mandatory fields(Negative Case)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "//8.Validate Missing mandatory fields",
+              "var jsonData = pm.response.json();",
+              "",
+              "pm.test(\"Response status code is 422 Unprocessable Entity \", function() {",
+              "    pm.response.to.have.status(422);",
+              "});",
+              "",
+              "pm.test(\"Validate error massage email is empty\", function() {",
+              "    pm.expect(jsonData[0].field).to.eql(\"email\");",
+              "    pm.expect(jsonData[0].message).to.eql(\"can't be blank\");",
+              "});",
+              "",
+              "pm.test(\"Validate error massage name is empty\", function() {",
+              "    pm.expect(jsonData[1].field).to.eql(\"name\");",
+              "    pm.expect(jsonData[1].message).to.eql(\"can't be blank\");",
+              "});",
+              "",
+              "pm.test(\"Validate error massage gender is empty\", function() {",
+              "    pm.expect(jsonData[2].field).to.eql(\"gender\");",
+              "    pm.expect(jsonData[2].message).to.eql(\"can't be blank, can be male of female\");",
+              "});",
+              "",
+              "pm.test(\"Validate error massage status is empty\", function() {",
+              "    pm.expect(jsonData[3].field).to.eql(\"status\");",
+              "    pm.expect(jsonData[3].message).to.eql(\"can't be blank\");",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{TOKEN}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"\",\n  \"email\": \"\",\n  \"gender\": \"\",\n  \"status\": \"\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://gorest.co.in/public/v2/users",
+          "protocol": "https",
+          "host": [
+            "gorest",
+            "co",
+            "in"
+          ],
+          "path": [
+            "public",
+            "v2",
+            "users"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get User by id (Happy Case)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "//1.Validate status code",
+              "pm.test(\"Response status code is 200 OK\", function() {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "//2.Validate correct user data",
+              "var jsonData = pm.response.json();",
+              "",
+              "console.log(typeof jsonData.id); ",
+              "",
+              "pm.test(\"Validate correct user data and data type\" ,function (){",
+              "    //ตรวจสอบ id ตรงกันที่ create มาล่าสุด",
+              "    pm.expect(jsonData.id).to.be.a('number');",
+              "    pm.expect(jsonData.id).to.eql(parseInt(pm.environment.get(\"current_user_id\")));",
+              "",
+              "    //ตรวจสอบ name",
+              "    pm.expect(jsonData.name).to.be.a('string');",
+              "    //ตรวจสอบ email",
+              "    pm.expect(jsonData.email).to.be.a('string');",
+              "    //ตรวจสอบ gender",
+              "    pm.expect(jsonData.gender).to.be.a('string')",
+              "    pm.expect(jsonData.gender).to.be.oneOf([\"male\",\"female\"])",
+              "    //ตรวจสอบ status",
+              "    pm.expect(jsonData.status).to.be.a('string')",
+              "    pm.expect(jsonData.status).to.be.oneOf([\"active\",\"inactive\"])",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{TOKEN}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://gorest.co.in/public/v2/users/{{current_user_id}}",
+          "protocol": "https",
+          "host": [
+            "gorest",
+            "co",
+            "in"
+          ],
+          "path": [
+            "public",
+            "v2",
+            "users",
+            "{{current_user_id}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Invalid Token",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var jsonData = pm.response.json();",
+              "",
+              "//1.Validate status code",
+              "pm.test(\"Response status code is 401 Unauthorized\", function() {",
+              "    pm.response.to.have.status(401);",
+              "});",
+              "",
+              "//2.Validate invalid token",
+              "pm.test(\"Validate error message invalid token\" , function (){",
+              "    pm.expect(jsonData).to.have.property('message')",
+              "    pm.expect(jsonData.message).to.eql(\"Invalid token\")",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "1234",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://gorest.co.in/public/v2/users/{{current_user_id}}",
+          "protocol": "https",
+          "host": [
+            "gorest",
+            "co",
+            "in"
+          ],
+          "path": [
+            "public",
+            "v2",
+            "users",
+            "{{current_user_id}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get User by id - User Not Found (Negative Case)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var jsonData = pm.response.json();",
+              "",
+              "pm.test(\"Response status code is 404 Not Found\", function() {",
+              "    pm.response.to.have.status(404);",
+              "});",
+              "",
+              "pm.test(\"Validate user not found error massage\" , function (){",
+              "    pm.expect(jsonData).to.have.property('message')",
+              "    pm.expect(jsonData.message).to.eql(\"Resource not found\")",
+              "})"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{TOKEN}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://gorest.co.in/public/v2/users/00000",
+          "protocol": "https",
+          "host": [
+            "gorest",
+            "co",
+            "in"
+          ],
+          "path": [
+            "public",
+            "v2",
+            "users",
+            "00000"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update User (Happy Case)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var jsonData = pm.response.json();",
+              "",
+              "//1.Validate status code",
+              "pm.test(\"Response status code is 200 OK\", function() {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "//2.Validate updated fields",
+              "pm.test(\"Validate updated field are correct\" , function(){",
+              "    //ดึงข้อมูล request มาเปรียบเทียบ",
+              "    var requestData = JSON.parse(pm.request.body.raw);",
+              "",
+              "    //ตรวจสอบ name ที่ถูก updated",
+              "    pm.expect(jsonData.name).to.eql(requestData.name)",
+              "    //ตรวจสอบ status ที่ถูก updated",
+              "    pm.expect(jsonData.status).to.eql(requestData.status)",
+              "})",
+              "",
+              "//3.ตรวจสอบข้อมูลเดิมที่ไม่ได้แก้",
+              "pm.test(\"Validate existing user data remain correct\" ,function (){",
+              "    //ตรวจสอบ id",
+              "    pm.expect(jsonData.id).to.be.a('number');",
+              "    pm.expect(jsonData.id).to.eql(parseInt(pm.environment.get(\"current_user_id\")));",
+              "",
+              "    //ตรวจสอบ email",
+              "    pm.expect(jsonData.email).to.be.a('string');",
+              "    //ตรวจสอบ gender",
+              "    pm.expect(jsonData.gender).to.be.a('string')",
+              "    pm.expect(jsonData.gender).to.be.oneOf([\"male\",\"female\"])",
+              " ",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{TOKEN}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"name\": \"PloyQA Updated\",\n    \"status\": \"inactive\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://gorest.co.in/public/v2/users/{{current_user_id}}",
+          "protocol": "https",
+          "host": [
+            "gorest",
+            "co",
+            "in"
+          ],
+          "path": [
+            "public",
+            "v2",
+            "users",
+            "{{current_user_id}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update User - Invalid Request Format (Negative Case)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var jsonData = pm.response.json();",
+              "",
+              "pm.test(\"Response status code is 422 Unprocessable Entity \", function() {",
+              "    pm.response.to.have.status(422);",
+              "});",
+              "",
+              "pm.test(\"Validate error massage email is empty\", function() {",
+              "    pm.expect(jsonData[0].field).to.eql(\"name\");",
+              "    pm.expect(jsonData[0].message).to.eql(\"can't be blank\");",
+              "});",
+              "",
+              "pm.test(\"Validate error massage name is empty\", function() {",
+              "    pm.expect(jsonData[1].field).to.eql(\"gender\");",
+              "    pm.expect(jsonData[1].message).to.eql(\"can't be blank, can be male of female\");",
+              "});",
+              "",
+              "pm.test(\"Validate error massage gender is empty\", function() {",
+              "    pm.expect(jsonData[2].field).to.eql(\"status\");",
+              "    pm.expect(jsonData[2].message).to.eql(\"can't be blank\");",
+              "});",
+              "",
+              "pm.test(\"Validate error massage status is empty\", function() {",
+              "    pm.expect(jsonData[3].field).to.eql(\"email\");",
+              "    pm.expect(jsonData[3].message).to.eql(\"is invalid\");",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{TOKEN}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"name\": \"\", \n    \"email\": \"example.com\",\n    \"gender\": \"i\",\n    \"status\": \"\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://gorest.co.in/public/v2/users/{{current_user_id}}",
+          "protocol": "https",
+          "host": [
+            "gorest",
+            "co",
+            "in"
+          ],
+          "path": [
+            "public",
+            "v2",
+            "users",
+            "{{current_user_id}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete User",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "//1.Validate status code",
+              "pm.test(\"Response status code is 204\", function() {",
+              "    pm.response.to.have.status(204);",
+              "});",
+              "",
+              "//2.Validate empty response body",
+              "pm.test(\"Response body should be empty\" , function (){",
+              "    pm.expect(pm.response.text()).to.be.empty;",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{TOKEN}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "https://gorest.co.in/public/v2/users/{{current_user_id}}",
+          "protocol": "https",
+          "host": [
+            "gorest",
+            "co",
+            "in"
+          ],
+          "path": [
+            "public",
+            "v2",
+            "users",
+            "{{current_user_id}}"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

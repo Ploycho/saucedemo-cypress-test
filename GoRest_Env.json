@@ -1,0 +1,22 @@
+{
+	"id": "207416e8-5350-4489-8ed6-2aa4e2bdfcf5",
+	"name": "GoRest_Test",
+	"values": [
+		{
+			"key": "current_user_id",
+			"value": 8510372,
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "TOKEN",
+			"value": "b2695b9a85ec17986cf036d5b3de4fce7bb60224c09a28e0c6440f2f6e6b1a79",
+			"type": "default",
+			"enabled": true
+		}
+	],
+	"color": null,
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2026-06-17T15:14:42.852Z",
+	"_postman_exported_using": "Postman/12.15.4"
+}
