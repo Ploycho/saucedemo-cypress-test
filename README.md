@@ -29,21 +29,22 @@ All manual testing reports are attached as PDF files inside the `document/` fold
 ```bash
    git clone [https://github.com/Ploycho/saucedemo-cypress-test.git](https://github.com/Ploycho/saucedemo-cypress-test.git)
    cd saucedemo-cypress-test
+```
 
 2. **Install dependencies:**
 ```bash
    npm install
-
+```
 3. **Run tests:**
 
 - To open Cypress UI:**
 ```bash
    npx cypress open
-
+```
 - To run in headless mode (Terminal):
 ```bash
    npx cypress open
-
+```
 ---
 
 ## 📬 How to Run API Tests (Postman)
