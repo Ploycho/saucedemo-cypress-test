@@ -46,6 +46,14 @@ describe('SauceDemo E2E Test', () => {
       .and('contain.text', 'Sorry, this user has been locked out.');
   });
 
+  it('Should display error message for invalid username or password', () => {
+    LoginPage.login('pppp', '11111');
+    LoginPage.errorMessage
+      .should('be.visible')
+      .and('contain.text', 'Username and password do not match any user in this service');
+  });
+
+
 });
 
 
